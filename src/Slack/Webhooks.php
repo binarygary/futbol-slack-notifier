@@ -17,9 +17,6 @@ class Webhooks {
 	}
 
 	public function alert( $message ) {
-		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			echo print_r( $message );
-		}
 
 		$hooks = new \WP_Query( [
 			'post_type'      => Slack_URL::POST_TYPE,
