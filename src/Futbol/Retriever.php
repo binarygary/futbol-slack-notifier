@@ -42,8 +42,8 @@ class Retriever {
 	private function send_updates( $games, $current_games ) {
 		$game_number = 0;
 		foreach ( $games as $game ) {
-			if ( $game['status'] !== $current_games[ $game_number ]['status'] ) {
-				if ( in_array( $game['status'], Match::STATUS ) ) {
+			if ( $game['status'] != $current_games[ $game_number ]['status'] ) {
+				if ( array_key_exists( $game['status'], Match::STATUS ) ) {
 					$this->messages->alert( $this->build_game_status_alert( $game ) );
 				}
 			}
