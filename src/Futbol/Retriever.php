@@ -30,6 +30,11 @@ class Retriever {
 				'X-Auth-Token' => get_option( Defaults::FOOTY_KEY ),
 			],
 		] );
+
+		if ( is_wp_error( $result ) ) {
+			return;
+		}
+
 		$games         = json_decode( $result['body'], true )['fixtures'];
 		$current_games = get_option( self::ENDPOINT_RESULTS, [] );
 		update_option( self::ENDPOINT_RESULTS, $games );
