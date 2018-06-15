@@ -5,7 +5,6 @@ namespace BinaryGary\Futbol\Futbol;
 use BinaryGary\Futbol\Settings\Defaults;
 use BinaryGary\Futbol\Slack\Post_Message;
 use BinaryGary\Futbol\Slack\Webhooks;
-use BinaryGary\Futbol\Twitter\Message;
 
 class Retriever {
 

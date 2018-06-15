@@ -58,6 +58,8 @@ class Match {
 	}
 
 	private function title_generator() {
+		error_log( print_r( $this, 1 ) );
+
 		if ( 'score_change' == $this->event ) {
 			$o           = $this->random_character( 'oO0', 7 );
 			$a           = $this->random_character( 'aA', 5 );
