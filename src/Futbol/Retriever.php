@@ -45,16 +45,29 @@ class Retriever {
 	private function send_updates( $games, $current_games ) {
 		$game_number = 0;
 		foreach ( $games as $game ) {
-			if ( $game['status'] != $current_games[ $game_number ]['status'] ) {
-				if ( array_key_exists( $game['status'], Match::STATUS ) ) {
-					$this->messages->alert( $this->build_game_status_alert( $game, $game_number ) );
-				}
-			}
 
 			if ( $game['result']['goalsHomeTeam'] != $current_games[ $game_number ]['result']['goalsHomeTeam'] ||
 			     $game['result']['goalsAwayTeam'] != $current_games[ $game_number ]['result']['goalsAwayTeam']
 			) {
-				$this->messages->alert( $this->build_GOAL_alert( $game, $game_number ) );
+				$alert = $this->build_GOAL_alert( $game, $game_number );
+				$game_alerts = get_option( 'wc' . $game_number, [] );
+				if ( ! in_array( md5( $alert ), $game_alerts ) ) {
+					$this->messages->alert( $alert );
+					$game_alerts[] = md5( $alert );
+					update_option( 'wc' . $game_number, $game_alerts );
+				}
+			}
+
+			if ( $game['status'] != $current_games[ $game_number ]['status'] ) {
+				if ( array_key_exists( $game['status'], Match::STATUS ) ) {
+					$alert = $this->build_game_status_alert( $game, $game_number );
+					$game_alerts = get_option( 'wc' . $game_number, [] );
+					if ( ! in_array( md5( $alert ), $game_alerts ) ) {
+						$this->messages->alert( $alert );
+						$game_alerts[] = md5( $alert );
+						update_option( 'wc' . $game_number, $game_alerts );
+					}
+				}
 			}
 
 			$game_number ++;
