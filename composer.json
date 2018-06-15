@@ -1,0 +1,23 @@
+{
+  "name": "binarygary/futbol-slack-notifier",
+  "description": "Send futbol goals to slack.",
+  "type": "wordpress-plugin",
+  "require": {
+    "pimple/pimple": "^3.2",
+    "wyndow/fuzzywuzzy": "^0.6.0",
+    "dg/twitter-php": "^3.7"
+  },
+  "authors": [
+    {
+      "name": "Gary Kovar",
+      "email": "plugins@binarygary.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "BinaryGary\\Futbol\\": "src/"
+    },
+    "files": [
+    ]
+  }
+}

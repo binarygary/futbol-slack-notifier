@@ -1,0 +1,27 @@
+<?php
+
+namespace BinaryGary\Futbol\Endpoints\Events;
+
+
+class Feedback extends Command {
+
+	public function get_keyword() {
+		return 'feedback';
+	}
+
+	public function process( $body ): array {
+
+		$args = [
+			'post_content' => print_r( $body, 1),
+			'post_status'  => 'publish',
+			'post_type'    => \BinaryGary\Futbol\Post_Types\Feedback::NAME,
+			'post_title'   => $body->event_id,
+		];
+		wp_insert_post( $args );
+
+		return [
+			'text' => 'Thanks for taking the time to share your feedback.',
+		];
+	}
+
+}
