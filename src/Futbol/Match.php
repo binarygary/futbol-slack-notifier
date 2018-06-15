@@ -67,7 +67,7 @@ class Match {
 			return 'G' . $o . $a . $l . $exclamation;
 		}
 
-		return 'Match ' . self::STATUS[ $this->event ];
+		return 'Match ' . self::STATUS[ $this->match_status ];
 	}
 
 	public function random_character( $character, $max = 3 ) {
