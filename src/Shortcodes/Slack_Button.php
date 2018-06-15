@@ -21,7 +21,7 @@ class Slack_Button {
 	}
 
 	public function generate() {
-		add_shortcode( 'slack_button', [ $this, 'build_button' ] );
+		add_shortcode( 'futbol_button', [ $this, 'build_button' ] );
 	}
 
 	public function build_button() {
