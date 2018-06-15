@@ -47,33 +47,34 @@ class Retriever {
 		foreach ( $games as $game ) {
 			if ( $game['status'] != $current_games[ $game_number ]['status'] ) {
 				if ( array_key_exists( $game['status'], Match::STATUS ) ) {
-					$this->messages->alert( $this->build_game_status_alert( $game ) );
+					$this->messages->alert( $this->build_game_status_alert( $game, $game_number ) );
 				}
 			}
 
 			if ( $game['result']['goalsHomeTeam'] != $current_games[ $game_number ]['result']['goalsHomeTeam'] ||
 			     $game['result']['goalsAwayTeam'] != $current_games[ $game_number ]['result']['goalsAwayTeam']
 			) {
-				$this->messages->alert( $this->build_GOAL_alert( $game ) );
+				$this->messages->alert( $this->build_GOAL_alert( $game, $game_number ) );
 			}
 
 			$game_number ++;
 		}
 	}
 
-	private function build_game_status_alert( $game ) {
+	private function build_game_status_alert( $game, $game_number ) {
 		$match = new Match();
 		$match->set( 'home_team', $game['homeTeamName'] )
 		      ->set( 'away_team', $game['awayTeamName'] )
 		      ->set( 'home_team_score', (int) $game['result']['goalsHomeTeam'] )
 		      ->set( 'away_team_score', (int) $game['result']['goalsAwayTeam'] )
 		      ->set( 'match_status', $game['status'] )
+		      ->set( 'game_number', $game_number )
 		      ->set( 'event', 'status_change' );
 
 		return $match->build_message();
 	}
 
-	private function build_GOAL_alert( $game ) {
+	private function build_GOAL_alert( $game, $game_number ) {
 
 		$match = new Match();
 		$match->set( 'home_team', $game['homeTeamName'] )
@@ -81,6 +82,7 @@ class Retriever {
 		      ->set( 'home_team_score', $game['result']['goalsHomeTeam'] )
 		      ->set( 'away_team_score', $game['result']['goalsAwayTeam'] )
 		      ->set( 'match_status', $game['status'] )
+		      ->set( 'game_number', $game_number )
 		      ->set( 'event', 'score_change' );
 
 		return $match->build_message();

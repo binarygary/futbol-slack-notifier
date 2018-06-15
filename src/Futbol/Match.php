@@ -59,10 +59,10 @@ class Match {
 
 	private function title_generator() {
 		if ( 'score_change' == $this->event ) {
-			$o           = $this->random_character( 'oO0', 7 );
-			$a           = $this->random_character( 'aA', 5 );
-			$l           = $this->random_character( 'lL1', 5 );
-			$exclamation = $this->random_character( '!', 5 );
+			$o           = $this->random_character( 'oO0', isset( $this->game_number ) ? (int) $this->game_number/2 : 7 );
+			$a           = $this->random_character( 'aA' );
+			$l           = $this->random_character( 'lL1' );
+			$exclamation = $this->random_character( '!' );
 
 			return 'G' . $o . $a . $l . $exclamation;
 		}
