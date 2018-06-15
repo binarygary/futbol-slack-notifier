@@ -51,9 +51,10 @@ class Retriever {
 			) {
 				$alert = $this->build_GOAL_alert( $game, $game_number );
 				$game_alerts = get_option( 'wc' . $game_number, [] );
-				if ( ! in_array( md5( $alert ), $game_alerts ) ) {
+				$hashed_alert = md5( json_encode( $alert ) );
+				if ( ! in_array( md5( $hashed_alert ), $game_alerts ) ) {
 					$this->messages->alert( $alert );
-					$game_alerts[] = md5( $alert );
+					$game_alerts[] = md5( $hashed_alert );
 					update_option( 'wc' . $game_number, $game_alerts );
 				}
 			}
@@ -62,9 +63,10 @@ class Retriever {
 				if ( array_key_exists( $game['status'], Match::STATUS ) ) {
 					$alert = $this->build_game_status_alert( $game, $game_number );
 					$game_alerts = get_option( 'wc' . $game_number, [] );
-					if ( ! in_array( md5( $alert ), $game_alerts ) ) {
+					$hashed_alert = md5( json_encode( $alert ) );
+					if ( ! in_array( md5( $hashed_alert ), $game_alerts ) ) {
 						$this->messages->alert( $alert );
-						$game_alerts[] = md5( $alert );
+						$game_alerts[] = md5( $hashed_alert );
 						update_option( 'wc' . $game_number, $game_alerts );
 					}
 				}
