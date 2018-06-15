@@ -66,6 +66,8 @@ class Match {
 			$l           = $this->random_character( 'lL1', 5 );
 			$exclamation = $this->random_character( '!¡', 5 );
 
+			error_log( 'G' . $o . $a . $l . $exclamation );
+
 			return 'G' . $o . $a . $l . $exclamation;
 		}
 
