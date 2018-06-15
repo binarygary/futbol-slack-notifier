@@ -14,11 +14,6 @@ class Feedback extends Post_Type {
 	public function args() {
 		return [
 			'public' => false,
-			'show_ui'      => true,
-			'show_in_menu' => true,
-			'labels'       => [
-				'menu_name' => __( 'Futbol Feedback', 'tribe' ),
-			],
 		];
 	}
 }
