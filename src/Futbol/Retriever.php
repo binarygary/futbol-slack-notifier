@@ -2,6 +2,7 @@
 
 namespace BinaryGary\Futbol\Futbol;
 
+use BinaryGary\Futbol\Settings\Defaults;
 use BinaryGary\Futbol\Slack\Post_Message;
 use BinaryGary\Futbol\Slack\Webhooks;
 use BinaryGary\Futbol\Twitter\Message;
@@ -17,21 +18,19 @@ class Retriever {
 	 */
 	protected $messages;
 
-	/**
-	 * @var Message
-	 */
-	protected $twitter;
-
 	protected $timestamp;
 
-	public function __construct( Webhooks $webhooks, Message $twitter ) {
+	public function __construct( Webhooks $webhooks ) {
 		$this->messages  = $webhooks;
-		$this->twitter   = $twitter;
 		$this->timestamp = time();
 	}
 
 	public function get_updates() {
-		$result        = wp_remote_get( self::ENDPOINT );
+		$result        = wp_remote_get( self::ENDPOINT, [
+			'headers' => [
+				'X-Auth-Token' => get_option( Defaults::FOOTY_KEY ),
+			],
+		] );
 		$games         = json_decode( $result['body'], true )['fixtures'];
 		$current_games = get_option( self::ENDPOINT_RESULTS, [] );
 		update_option( self::ENDPOINT_RESULTS, $games );

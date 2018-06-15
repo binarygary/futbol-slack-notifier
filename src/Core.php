@@ -7,7 +7,6 @@ use BinaryGary\Futbol\Service_Providers\Futbol_Provider;
 use BinaryGary\Futbol\Service_Providers\Post_Type_Provider;
 use BinaryGary\Futbol\Service_Providers\Shortcodes_Provider;
 use BinaryGary\Futbol\Service_Providers\Slack_Provider;
-use BinaryGary\Futbol\Service_Providers\Twitter_Service_Provider;
 use Pimple\Container;
 use BinaryGary\Futbol\Service_Providers\Settings_Provider;
 
@@ -42,7 +41,6 @@ class Core {
 		$this->container->register( new Shortcodes_Provider() );
 		$this->container->register( new Slack_Provider() );
 		$this->container->register( new Post_Type_Provider() );
-		$this->container->register( new Twitter_Service_Provider() );
 		$this->container->register( new Futbol_Provider() );
 	}
 

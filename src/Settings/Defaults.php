@@ -11,15 +11,12 @@ class Defaults {
 	const SLACK_APP_ID     = 'futbol_slack_app_id';
 	const SLACK_APP_SECRET = 'futbol_slack_app_secret';
 
+	const FOOTY_KEY = 'football-date-key';
+
 	const SUCCESS_MESSAGE = 'futbol_slack_success_message';
 
 	const SUCCESS_PAGE = 'futbol_slack_api_success';
 	const FAILURE_PAGE = 'futbol_slack_api_failure';
-
-	const TWITTER_CONUMER_KEY    = 'futbol_twitter_consumer_key';
-	const TWITTER_CONUMER_SECRET = 'futbol_twitter_consumer_secret';
-	const ACCESS_TOKEN           = 'futbol_twitter_access_token';
-	const ACCESS_TOKEN_SECRET    = 'futbol_twitter_access_token_secret';
 
 	public function create_menu() {
 		add_submenu_page(
@@ -37,15 +34,7 @@ class Defaults {
 			self::SLACK_APP_ID     => __( 'Slack APP ID', 'tribe' ),
 			self::SLACK_APP_SECRET => __( 'Slack APP Secret', 'tribe' ),
 			self::SUCCESS_MESSAGE  => __( 'Success Message', 'tribe' ),
-		];
-	}
-
-	public function twitter_text_fields() {
-		return [
-			self::TWITTER_CONUMER_KEY    => __( 'Twitter Consumer Key', 'tribe' ),
-			self::TWITTER_CONUMER_SECRET => __( 'Twitter Consumer Secret', 'tribe' ),
-			self::ACCESS_TOKEN           => __( 'Twitter Access Token', 'tribe' ),
-			self::ACCESS_TOKEN_SECRET    => __( 'Twitter Access Token Secret', 'tribe' ),
+			self::FOOTY_KEY        => __( 'Footy Key', 'tribe' ),
 		];
 	}
 
@@ -60,17 +49,12 @@ class Defaults {
 		register_setting( self::SETTINGS_GROUP, self::SLACK_APP_ID );
 		register_setting( self::SETTINGS_GROUP, self::SLACK_APP_SECRET );
 		register_setting( self::SETTINGS_GROUP, self::SUCCESS_MESSAGE );
+		register_setting( self::SETTINGS_GROUP, self::FOOTY_KEY );
 		register_setting( self::SETTINGS_GROUP, self::SUCCESS_PAGE );
 		register_setting( self::SETTINGS_GROUP, self::FAILURE_PAGE );
-		register_setting( self::SETTINGS_GROUP, self::TWITTER_CONUMER_KEY );
-		register_setting( self::SETTINGS_GROUP, self::TWITTER_CONUMER_SECRET );
-		register_setting( self::SETTINGS_GROUP, self::ACCESS_TOKEN );
-		register_setting( self::SETTINGS_GROUP, self::ACCESS_TOKEN_SECRET );
 
 		$this->text_input_settings();
 		$this->page_input_settings();
-
-		$this->twitter_text_input_settings();
 
 	}
 
@@ -106,21 +90,6 @@ class Defaults {
 		}
 	}
 
-	private function twitter_text_input_settings() {
-		foreach ( $this->twitter_text_fields() as $field => $title ) {
-			add_settings_section(
-				$field . '_section',
-				$title,
-				function () use ( $field ) {
-					printf( '<input value="%s" name="%s">',
-						get_option( $field ),
-						$field
-					);
-				},
-				self::SETTINGS_PAGE_NAME
-			);
-		}
-	}
 
 	private function page_input_settings() {
 		foreach ( $this->page_fields() as $field => $title ) {
