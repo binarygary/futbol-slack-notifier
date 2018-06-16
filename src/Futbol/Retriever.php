@@ -46,8 +46,9 @@ class Retriever {
 		$game_number = 0;
 		foreach ( $games as $game ) {
 
-			if ( $game['result']['goalsHomeTeam'] != $current_games[ $game_number ]['result']['goalsHomeTeam'] ||
-			     $game['result']['goalsAwayTeam'] != $current_games[ $game_number ]['result']['goalsAwayTeam']
+			if ( ( $game['result']['goalsHomeTeam'] != $current_games[ $game_number ]['result']['goalsHomeTeam'] ||
+			     $game['result']['goalsAwayTeam'] != $current_games[ $game_number ]['result']['goalsAwayTeam'] ) &&
+			     $game['status'] == 'IN_PLAY'
 			) {
 				$alert = $this->build_GOAL_alert( $game, $game_number );
 				$game_alerts = get_option( 'wc' . $game_number, [] );
